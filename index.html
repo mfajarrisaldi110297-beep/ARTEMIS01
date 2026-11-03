@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="id"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="/logo.png">
+<title>REKAPITULASI LKBB ARTEMIS CHAPTER 2</title>
+<style>
+:root{--navy:#0b2447;--navy2:#19376d;--gold:#c9a227;--bg:#f4f6fb;--card:#fff;--tx:#1b2333;--mu:#667;--bd:#dde2ee;--row:#f8f9fd}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--bg);color:var(--tx)}
+button{font:inherit;cursor:pointer;border:0;border-radius:8px;padding:9px 14px;background:var(--navy);color:#fff}
+button.g{background:var(--gold);color:#1b1500;font-weight:600}button.o{background:transparent;color:var(--tx);border:1px solid var(--bd)}button.r{background:#b3261e}
+input{font:inherit;padding:9px 10px;border:1px solid var(--bd);border-radius:8px;background:#fff;color:var(--tx);width:100%}
+header.top{background:var(--navy);color:#fff;padding:12px 18px;display:flex;align-items:center;gap:12px;border-bottom:3px solid var(--gold)}
+.logo{width:42px;height:42px;border-radius:50%;background:var(--gold);color:var(--navy);display:grid;place-items:center;font-weight:800;flex:none}
+header.top .sp{flex:1}header.top b{display:block}header.top small{opacity:.75}
+.land{min-height:80vh;display:grid;place-items:center;padding:24px;text-align:center}.land>div{width:100%;max-width:440px;margin:0 auto}
+.box{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:26px;width:100%;max-width:400px;margin:20px auto 0;text-align:left;box-shadow:0 8px 30px #0b244722}
+.tabs{display:flex;gap:6px;margin-bottom:14px}.tabs button{flex:1;background:var(--row);color:var(--tx);border:1px solid var(--bd)}.tabs button.on{background:var(--navy);color:#fff}
+.box label{display:block;font-size:13px;color:var(--mu);margin:10px 0 4px}.err{color:#b3261e;font-size:13px;min-height:18px;margin-top:8px}
+h1{color:var(--navy);margin:14px 0 6px;font-size:clamp(22px,4vw,32px)}.mu{color:var(--mu)}
+.layout{display:flex;min-height:calc(100vh - 70px)}
+aside{width:210px;background:var(--navy2);padding:14px 10px;flex:none}aside button{display:block;width:100%;text-align:left;background:transparent;margin-bottom:4px;color:#dfe6f7}aside button.on{background:var(--gold);color:#1b1500;font-weight:600}
+main{flex:1;padding:18px;min-width:0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px;margin:14px 0}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:18px}
+.lv{cursor:pointer;text-align:center;border-top:4px solid var(--gold);padding:30px 10px}.lv:hover{transform:translateY(-3px);box-shadow:0 8px 20px #0b244733}.lv b{font-size:28px;color:var(--navy)}
+.stat b{font-size:26px;display:block;color:var(--navy)}
+.bar{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0;align-items:center}.bar input{max-width:240px}
+.tw{overflow-x:auto;border:1px solid var(--bd);border-radius:12px;background:var(--card);max-height:70vh}
+table{border-collapse:collapse;width:100%;min-width:760px}th{background:var(--navy);color:#fff;position:sticky;top:0;padding:10px 8px;font-size:13px;white-space:nowrap;user-select:none}
+th.s{cursor:pointer}th.s:hover{background:var(--gold);color:#1b1500}td{padding:7px 8px;border-top:1px solid var(--bd);text-align:center}tr:nth-child(even) td{background:var(--row)}
+td.n,th.n{text-align:left}td input{padding:6px;text-align:center;min-width:62px}td input.nm{text-align:left;min-width:160px}
+.bg{display:inline-grid;place-items:center;min-width:28px;height:28px;border-radius:14px;font-weight:700;background:var(--bd)}
+.b1{background:#d4af37;color:#2b2100}.b2{background:#c0c0c0;color:#222}.b3{background:#cd7f32;color:#fff}
+.calc{font-weight:700}.log{padding-left:18px}.log li{margin:5px 0;font-size:14px}
+.chart div{display:flex;align-items:center;gap:8px;margin:6px 0;font-size:13px}.chart i{display:block;height:14px;background:var(--gold);border-radius:4px}
+#toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#b3261e;color:#fff;padding:10px 16px;border-radius:8px;display:none;z-index:9}
+@media (max-width:720px){.layout{flex-direction:column}aside{width:100%;display:flex;overflow-x:auto;gap:4px}aside button{white-space:nowrap;width:auto;margin:0}main{padding:12px}}
+@media print{header.top button,aside,.bar,.noprint,.act{display:none!important}.layout{display:block}.tw{max-height:none;border:0}th{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+img.logo{background:none!important;object-fit:contain;border-radius:50%}header.top .logo{width:48px;height:48px}</style></head><body>
+<div id="app"></div><div id="toast"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<script>
+// ===== ISI DUA BARIS INI (Supabase > Project Settings > API) =====
+const SUPABASE_URL="https://XXXXXXXX.supabase.co";
+const SUPABASE_ANON_KEY="ISI_DENGAN_ANON_PUBLIC_KEY";
+// =================================================================
+const LOGO="/logo.png";
+const LV=["SD","SMP","SMA","PURNA"];
+let tok=sessionStorage.getItem("tok"),role=sessionStorage.getItem("role"),lvl=null,view="dash",sort=null,q="",data=[],timer=null;
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function toast(m){const t=document.getElementById("toast");t.textContent=m;t.style.display="block";setTimeout(()=>t.style.display="none",3500)}
+const sb=supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
+let uname="";
+const EMAIL=x=>x.trim().toLowerCase()+"@lkbb.local";
+async function getProfile(){const {data:{session}}=await sb.auth.getSession();if(!session)return null;
+  const {data}=await sb.from("profiles").select("role,username").eq("id",session.user.id).maybeSingle();return data}
+async function logit(t){try{await sb.from("aktivitas").insert({username:uname,keterangan:t})}catch(e){}}
+const numv=v=>Math.max(0,Math.round((parseFloat(String(v).replace(",","."))||0)*100)/100);
+function unduh(t,f){if(f==="pdf"){window.print();return}
+ const rows=[["No","Nama Sekolah","PBB","VARFOR","DANTON","JUARA UTAMA","KOSTUM","MAKEUP","JUARA UMUM"],...data.map(r=>[r.peringkat,r.nama_sekolah,r.nilai_pbb,r.nilai_varfor,r.nilai_danton,r.juara_utama,r.nilai_kostum,r.nilai_makeup,r.juara_umum])];
+ const wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet(rows),"Rekap "+t);XLSX.writeFile(wb,`rekap-${t}.xlsx`)}
+async function login(){const t=document.querySelector(".tabs .on").dataset.r,err=document.getElementById("err");err.textContent="";
+ const {error}=await sb.auth.signInWithPassword({email:EMAIL(u.value),password:p.value});
+ if(error){err.textContent="Username atau password salah.";return}
+ const pr=await getProfile();
+ if(!pr||pr.role!==t){await sb.auth.signOut();err.textContent=pr?`Akun ini bukan akun ${t}.`:"Profil akun belum dibuat (lihat README).";return}
+ tok=true;role=pr.role;uname=pr.username;lvl=null;view="dash";draw()}
+async function logout(){try{await sb.auth.signOut()}catch(e){}tok=role=null;lvl=null;clearInterval(timer);sessionStorage.clear();draw()}
+async function init(){try{const pr=await getProfile();if(pr){tok=true;role=pr.role;uname=pr.username}else{tok=role=null}}catch(e){tok=role=null}draw()}
+const sel=(b)=>{document.querySelectorAll(".tabs button").forEach(x=>x.classList.remove("on"));b.classList.add("on")};
+const badge=n=>`<span class="bg ${n<=3?"b"+n:""}">${n}</span>`;
+const KEYS=[["nilai_pbb","PBB"],["nilai_varfor","VARFOR"],["nilai_danton","DANTON"],["juara_utama","JUARA UTAMA"],["nilai_kostum","KOSTUM"],["nilai_makeup","MAKEUP"],["juara_umum","JUARA UMUM"]];
+function shell(x){return `<header class="top"><img class="logo" alt="Logo LKBB Artemis" src="${LOGO}"><div><b>REKAPITULASI LKBB ARTEMIS CHAPTER 2</b><small>${role==="panitia"?"Panel Panitia":"Halaman Peserta"}</small></div><div class="sp"></div><button class="g" onclick="logout()">Keluar</button></header>`+x}
+function landing(){return `<header class="top"><img class="logo" alt="Logo LKBB Artemis" src="${LOGO}"><div><b>REKAPITULASI LKBB ARTEMIS CHAPTER 2</b><small>Perlombaan SD · SMP · SMA · PURNA</small></div></header>
+<div class="land"><div><img class="logo" alt="Logo LKBB Artemis" src="${LOGO}" style="width:130px;height:130px;margin:auto;display:block"><h1>REKAPITULASI LKBB ARTEMIS CHAPTER 2</h1>
+<p class="mu">Lihat hasil penilaian secara transparan, dengan peringkat yang dihitung otomatis.</p>
+<div class="box"><div class="tabs"><button class="on" data-r="peserta" onclick="sel(this)">Login Peserta</button><button data-r="panitia" onclick="sel(this)">Login Panitia</button></div>
+<label>Username</label><input id="u" autocomplete="username"><label>Password</label><input id="p" type="password" autocomplete="current-password" onkeydown="if(event.key==='Enter')login()">
+<div class="err" id="err"></div><button class="g" style="width:100%" onclick="login()">Masuk</button></div></div></div>`}
+function cards(){return `<h2>Pilih Tingkatan</h2><div class="grid">`+LV.map(l=>`<div class="card lv" onclick="go('${l}')"><b>${l}</b><div class="mu">Lihat / kelola nilai</div></div>`).join("")+`</div>`}
+async function go(l){lvl=l;view="lvl";sort=null;q="";draw();await load();clearInterval(timer);timer=setInterval(()=>{if(!document.activeElement||document.activeElement.tagName!=="INPUT")load()},5000)}
+async function load(){if(!lvl)return;const {data:d,error}=await sb.from("peserta_ranked").select("*").eq("tingkatan",lvl).order("peringkat");if(error){toast(error.message);return}data=d;redraw()}
+function rows(){let a=data;if(q)a=a.filter(r=>r.nama_sekolah.toLowerCase().includes(q.toLowerCase()));
+  if(sort){const d=sort.dir==="desc"?1:-1;a=[...a].sort((x,y)=>d*(y[sort.k]-x[sort.k])||x.peringkat-y.peringkat)}return a}
+function doSort(k){sort=sort&&sort.k===k?{k,dir:sort.dir==="desc"?"asc":"desc"}:{k,dir:"desc"};redraw()}
+function table(adm){const a=rows();
+ const th=`<tr><th>No</th><th class="n">Nama Sekolah</th>`+KEYS.map(([k,t])=>`<th class="s" onclick="doSort('${k}')">${t} ${sort&&sort.k===k?(sort.dir==="desc"?"▼":"▲"):"↕"}</th>`).join("")+(adm?`<th class="act">Aksi</th>`:"")+`</tr>`;
+ const inp=(r,k)=>`<td><input type="number" min="0" step="any" value="${r[k]}" onchange="upd(${r.id},'${k}',this.value)"></td>`;
+ return `<div class="tw"><table><thead>${th}</thead><tbody>`+(a.length?a.map(r=>adm?
+  `<tr><td>${badge(r.peringkat)}</td><td class="n"><input class="nm" value="${esc(r.nama_sekolah)}" onchange="upd(${r.id},'nama_sekolah',this.value)"></td>${inp(r,"nilai_pbb")}${inp(r,"nilai_varfor")}${inp(r,"nilai_danton")}<td class="calc">${r.juara_utama}</td>${inp(r,"nilai_kostum")}${inp(r,"nilai_makeup")}<td class="calc">${r.juara_umum}</td><td class="act"><button class="r" onclick="del(${r.id})">Hapus</button></td></tr>`
+  :`<tr><td>${badge(r.peringkat)}</td><td class="n">${esc(r.nama_sekolah)}</td><td>${r.nilai_pbb}</td><td>${r.nilai_varfor}</td><td>${r.nilai_danton}</td><td class="calc">${r.juara_utama}</td><td>${r.nilai_kostum}</td><td>${r.nilai_makeup}</td><td class="calc">${r.juara_umum}</td></tr>`).join(""):`<tr><td colspan="10" class="mu" style="padding:24px">Belum ada data.</td></tr>`)+`</tbody></table></div>
+ <p class="mu noprint" style="font-size:12px">Badge = peringkat default (Juara Utama; seri: PBB → VARFOR → DANTON → KOSTUM). MAKEUP hanya dicatat, tidak dihitung. Peringkat dihitung server.</p>`}
+function stats(){const top=data[0],um=[...data].sort((x,y)=>y.juara_umum-x.juara_umum||x.peringkat-y.peringkat)[0];
+ return `<div class="grid noprint"><div class="card stat"><span class="mu">Peserta</span><b>${data.length}</b></div><div class="card stat"><span class="mu">Nilai tertinggi (Umum)</span><b>${data.length?Math.max(...data.map(r=>r.juara_umum)):0}</b></div><div class="card stat"><span class="mu">Juara Utama</span><b style="font-size:18px">${top?esc(top.nama_sekolah):"-"}</b></div><div class="card stat"><span class="mu">Juara Umum</span><b style="font-size:18px">${um?esc(um.nama_sekolah):"-"}</b></div></div>`}
+function levelPage(adm){return `<div class="bar noprint"><button class="o" onclick="lvl=null;view='${adm?"pick":"x"}';clearInterval(timer);draw()">← Pilihan tingkatan</button><input placeholder="Cari nama sekolah..." value="${esc(q)}" oninput="q=this.value;redraw()"><button class="o" onclick="sort=null;redraw()">Reset Urutan</button>
+ ${adm?`<button class="g" onclick="add()">+ Tambah Peserta</button><button class="o" onclick="unduh(lvl,'xlsx')">Download Excel</button><button class="r" onclick="resetL()">Reset Data</button>`:""}<button class="o" onclick="window.print()">Cetak</button><button class="o" onclick="unduh(lvl,'pdf')">Download PDF</button></div>
+ <h2 style="margin:6px 0">Tingkat ${lvl}</h2><div id="st">${stats()}</div><div id="tb">${table(adm)}</div>`}
+function redraw(){const t=document.getElementById("tb");if(t){t.innerHTML=table(role==="panitia");document.getElementById("st").innerHTML=stats()}}
+function ask(msg,input){return new Promise(res=>{const d=document.createElement("div");d.style.cssText="position:fixed;inset:0;background:#0008;display:grid;place-items:center;z-index:99;padding:16px";d.innerHTML=`<div class="box" style="margin:0"><p>${esc(msg)}</p>${input?'<input id="aski">':''}<div style="display:flex;gap:8px;margin-top:12px"><button class="g" id="ok">OK</button><button class="o" id="no">Batal</button></div></div>`;document.body.appendChild(d);const i=d.querySelector("#aski");if(i)i.focus();const done=v=>{d.remove();res(v)};d.querySelector("#ok").onclick=()=>done(input?i.value:true);d.querySelector("#no").onclick=()=>done(input?null:false);if(i)i.onkeydown=e=>{if(e.key==="Enter")done(i.value)}})}
+async function add(){const n=await ask("Nama sekolah / peserta:",true);if(!n||!n.trim())return;
+ const {error}=await sb.from("peserta_penilaian").insert({tingkatan:lvl,nama_sekolah:n.trim()});if(error)return toast(error.message);logit(`Menambah ${n.trim()} (${lvl})`);load()}
+async function upd(id,k,v){const val=k==="nama_sekolah"?v.trim():numv(v);if(k==="nama_sekolah"&&!val){load();return}
+ const {error}=await sb.from("peserta_penilaian").update({[k]:val}).eq("id",id);if(error)toast(error.message);else logit(`Mengubah ${k.replace("nilai_","").toUpperCase()} id ${id} (${lvl})`);load()}
+async function del(id){if(!await ask("Hapus data ini?"))return;const {error}=await sb.from("peserta_penilaian").delete().eq("id",id);if(error)toast(error.message);else logit(`Menghapus data id ${id} (${lvl})`);load()}
+async function resetL(){if(await ask(`Reset SEMUA data tingkat ${lvl}? Ketik RESET untuk melanjutkan:`,true)!=="RESET")return;
+ const {error}=await sb.from("peserta_penilaian").delete().eq("tingkatan",lvl);if(error)toast(error.message);else logit(`Reset data ${lvl}`);load()}
+async function dashData(){const {data:a,error}=await sb.from("peserta_ranked").select("*");if(error)throw error;
+ const per=LV.map(t=>{const x=a.filter(r=>r.tingkatan===t).sort((m,n)=>m.peringkat-n.peringkat);return{tingkatan:t,total:x.length,tertinggi_utama:x.length?x[0].juara_utama:0,tertinggi_umum:x.length?Math.max(...x.map(r=>r.juara_umum)):0,peringkat1:x.length?x[0].nama_sekolah:null}});
+ const {data:l}=await sb.from("aktivitas").select("*").order("id",{ascending:false}).limit(10);
+ return{per,total:a.length,aktivitas:(l||[]).map(x=>({keterangan:x.keterangan,username:x.username,waktu:new Date(x.waktu).toLocaleString("id-ID")}))}}
+async function dashHtml(){let d;try{d=await dashData()}catch(e){return ""}const mx=Math.max(1,...d.per.map(x=>x.total));
+ return `<h2>Dashboard</h2><div class="grid">`+d.per.map(x=>`<div class="card stat"><span class="mu">Sekolah ${x.tingkatan}</span><b>${x.total}</b></div>`).join("")+`<div class="card stat"><span class="mu">Total peserta</span><b>${d.total}</b></div></div>
+ <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr))"><div class="card"><b>Peringkat 1 & nilai tertinggi</b><ul class="log">`+d.per.map(x=>`<li><b>${x.tingkatan}</b>: ${x.peringkat1?`${esc(x.peringkat1)} (Utama ${x.tertinggi_utama}) · tertinggi Umum ${x.tertinggi_umum}`:"-"}</li>`).join("")+`</ul></div>
+ <div class="card"><b>Jumlah per tingkatan</b><div class="chart">`+d.per.map(x=>`<div><span style="width:52px">${x.tingkatan}</span><i style="width:${x.total/mx*100}%;min-width:3px"></i>${x.total}</div>`).join("")+`</div></div>
+ <div class="card"><b>Aktivitas terbaru</b><ul class="log">${d.aktivitas.length?d.aktivitas.map(x=>`<li>${esc(x.keterangan)}<br><small class="mu">${esc(x.username||"")} · ${x.waktu}</small></li>`).join(""):"<li class='mu'>Belum ada aktivitas.</li>"}</ul></div></div>`}
+async function draw(){const app=document.getElementById("app");
+ if(!tok){app.innerHTML=landing();return}
+ if(role==="peserta"){app.innerHTML=shell(`<main>${lvl?levelPage(false):cards()}</main>`);redraw();return}
+ const nav=`<aside><button class="${!lvl&&view==="dash"?"on":""}" onclick="lvl=null;view='dash';clearInterval(timer);draw()">Dashboard</button>`+LV.map(l=>`<button class="${lvl===l?"on":""}" onclick="go('${l}')">${l}</button>`).join("")+`</aside>`;
+ const body=lvl?levelPage(true):(view==="dash"?await dashHtml()+cards():cards());
+ app.innerHTML=shell(`<div class="layout">${nav}<main>${body}</main></div>`);if(lvl)redraw()}
+init();
+</script></body></html>
